@@ -5,6 +5,8 @@ import ballerinax/postgresql;
 import ballerinax/postgresql.driver as _;
 import ballerina/io;
 
+// Record the application start time
+final time:Utc appStartTime = time:utcNow();
 
 // Default HTTP listener for the service
 listener http:Listener httpDefaultListener = http:getDefaultListener();
@@ -51,18 +53,24 @@ service /api on httpDefaultListener {
         time:Utc currentUtc = time:utcNow();
         string currentTimeString = time:utcToString(currentUtc);
 
+        // Get uptime duration in seconds
+        time:Seconds uptimeSeconds = time:utcDiffSeconds(currentUtc, appStartTime);
+
         // Return the health check response
         return {
-            "status": "OK",
-            "message": "Farm2Market API service is running",
-            "timestamp": currentTimeString
+            "service": "Farm2Market API",
+            "version": "0.1.0",
+            "status": "UP",
+            "message": "Service is running",
+            "timestamp": currentTimeString,
+            "uptime": uptimeSeconds
         };
     }
 }
 
 // Function to connect to the PostgreSQL database
 public function connectDb() returns postgresql:Client|error {
-    
+
         // Create a new PostgreSQL client using the configuration parameters
         // The db variable is expected to be defined in the Config.toml file
         postgresql:Client dbClient =  check new (
