@@ -10,7 +10,7 @@
 Set PostgreSQL connection details in `Config.toml`:
 
 ```toml
-[db]
+[Farm2Market_backend.utils.db]
 # Database host address
 dbHost = "database_host"
 # Database port number
