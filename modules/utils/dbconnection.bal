@@ -1,6 +1,5 @@
 import ballerinax/postgresql;
 import ballerinax/postgresql.driver as _;
-import ballerina/io;
 
 // PostgreSQL connection options
 postgresql:Options postgresqlOptions = {
@@ -40,23 +39,39 @@ public function connectDb() returns postgresql:Client|error {
 // Function to get the PostgreSQL client or throw an error if connection fails
 public function getDbClientOrThrow() returns postgresql:Client {
 
-    // Log the attempt to connect to the database
-    io:println("Attempting DB connection...");
-
+    // // Log the attempt to connect to the database
+    // logWithTime({
+    //     message: "Attempting DB connection...",
+    //     level: "INFO",
+    //     location: "utils/dbconnection:getDbClientOrThrow",
+    //     context: "DbConnection"
+    // });
+    
     // Try to connect to DB
     postgresql:Client|error clientResult = connectDb();
 
     // If the connection fai`ls, panic with an error message
     if clientResult is error {
 
-        // Panic with a generic error message
-        panic error("DB connection failed!");
+        
+        logWithTime({
+            message: "DB connection failed!",
+            level: "ERROR",
+            location: "utils/dbconnection:getDbClientOrThrow",
+            context: "DbConnection"
+        });
 
-        // Panic with the error message from the connection attempt
-        // panic error("DB connection failed!: " + clientResult.message());
+        // Panic with error message
+        panic error(clientResult.message());
     }
-    // If the connection is successful, log success and return the client
-    io:println("DB connection successful.\n");
+
+    // Log successful connection to the database
+    logWithTime({
+            message: "Connected to DB.",
+            level: "INFO",
+            location: "utils/dbconnection:getDbClientOrThrow",
+            context: "DbConnection"
+        });
 
     // Return the connected PostgreSQL client
     return clientResult;

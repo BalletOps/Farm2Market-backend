@@ -1,9 +1,9 @@
 import ballerina/http;
 import ballerina/time;
 import ballerinax/postgresql.driver as _;
-import ballerina/io;
 import Farm2Market_backend.services;
 import Farm2Market_backend.types;
+import Farm2Market_backend.utils;
 
 // Record the application start time, which is used for health checks
 final time:Utc appStartTime = time:utcNow();
@@ -14,9 +14,13 @@ listener http:Listener httpDefaultListener = http:getDefaultListener();
 // Main function
 public function main() returns error? {
 
-        // Testing produce data retrieval
-        // This is just for demonstration purposes and can be removed in production code
-        io:println("Produce Data: ", services:getProduceData());
+    // Log the application start event
+    utils:log({
+        message: "Farm2Market app started.",
+        level: "INFO",
+        location: "main:main",
+        context: "Application"
+    });
 }
 
 
@@ -30,9 +34,6 @@ service /api on httpDefaultListener {
 
     // Endpoint to retrieve produce data [/api/produce]
     resource function get produce() returns types:Produce[]|error {
-
-        // Call the function to retrieve produce data
         return services:getProduceData();
     }
 }
-
