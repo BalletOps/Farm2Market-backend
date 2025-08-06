@@ -70,7 +70,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "http"
-version = "2.14.2"
+version = "2.14.3"
 dependencies = [
 	{org = "ballerina", name = "auth"},
 	{org = "ballerina", name = "cache"},
@@ -361,6 +361,7 @@ dependencies = [
 	{org = "ballerinax", name = "postgresql.driver"}
 ]
 modules = [
-	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend"}
+	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend"},
+	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend.utils"}
 ]
 
