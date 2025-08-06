@@ -5,6 +5,9 @@
 -   `GET /api/health`  
     Returns service status, version, timestamp, and uptime.
 
+-   `GET /api/produce`  
+    Returns all produce items.
+
 ## Configuration
 
 Set PostgreSQL connection details in `Config.toml`:

@@ -362,6 +362,8 @@ dependencies = [
 ]
 modules = [
 	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend"},
+	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend.services"},
+	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend.types"},
 	{org = "balletops", packageName = "Farm2Market_backend", moduleName = "Farm2Market_backend.utils"}
 ]
 
